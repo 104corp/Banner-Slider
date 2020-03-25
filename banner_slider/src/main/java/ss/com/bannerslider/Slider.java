@@ -324,6 +324,11 @@ public class Slider extends FrameLayout {
                   public void run() {
                     int nextSlidePosition = positionController.getNextSlide(selectedSlidePosition);
 
+                    if (selectedSlidePosition == nextSlidePosition) {
+                      // 位置沒變更，不需更新
+                      return;
+                    }
+
                     if (hasScrollEffect) {
 
                       while (nextSlidePosition > sliderAdapter.getItemCount()) {
@@ -336,15 +341,6 @@ public class Slider extends FrameLayout {
                           positionController.getRealSlidePosition(nextSlidePosition);
                       final int userSlidePosition =
                           positionController.getUserSlidePosition(nextSlidePosition);
-                      // Log.i(
-                      //    "banner",
-                      //    String.format(
-                      //        "prev: %s   now: %s   next: %s   real: %s   user: %s",
-                      //        prevSlidePosition,
-                      //        selectedSlidePosition,
-                      //        nextSlidePosition,
-                      //        realSlidePosition,
-                      //        userSlidePosition));
 
                       final LinearLayoutManager linearLayoutManager =
                           (LinearLayoutManager) recyclerView.getLayoutManager();
@@ -354,8 +350,6 @@ public class Slider extends FrameLayout {
                         final View currentView =
                             linearLayoutManager.findViewByPosition(
                                 linearLayoutManager.findFirstCompletelyVisibleItemPosition());
-
-                        // Log.i("banner", String.format("current view: %s", currentView));
 
                         if (currentView != null) {
                           Animator set =
