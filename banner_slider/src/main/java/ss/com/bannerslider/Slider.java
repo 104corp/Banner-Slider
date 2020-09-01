@@ -335,12 +335,7 @@ public class Slider extends FrameLayout {
                         nextSlidePosition = positionController.getNextSlide(nextSlidePosition);
                       }
 
-                      final int prevSlidePosition =
-                          positionController.getPrevSlide(nextSlidePosition);
-                      final int realSlidePosition =
-                          positionController.getRealSlidePosition(nextSlidePosition);
-                      final int userSlidePosition =
-                          positionController.getUserSlidePosition(nextSlidePosition);
+                      final int finalNextSlidePosition = nextSlidePosition;
 
                       final LinearLayoutManager linearLayoutManager =
                           (LinearLayoutManager) recyclerView.getLayoutManager();
@@ -364,7 +359,7 @@ public class Slider extends FrameLayout {
                                 @Override
                                 public void onAnimationEnd(Animator animation) {
                                   currentView.setAlpha(0.0f);
-                                  recyclerView.scrollToPosition(userSlidePosition);
+                                  recyclerView.scrollToPosition(finalNextSlidePosition);
                                   currentView.setAlpha(1.0f);
                                 }
 
